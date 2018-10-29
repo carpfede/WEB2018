@@ -1,0 +1,123 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <title>TucSoft</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <script src="js/ddmenu.js" type="text/javascript"></script>
+    <script src="js/ddfooter.js" type="text/javascript"></script>
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.2/css/bootstrap.min.css" integrity="sha384-Smlep5jCw/wG7hdkwQ/Z5nLIefveQRIY9nfy6xoR1uRYBtpZgI6339F5dgvm/e9B"
+        crossorigin="anonymous">
+    <style>
+        hr {
+            background-color: white !important;
+        }
+
+        html,
+        body,
+        #container {
+            height: 95%;
+            margin: 0;
+            padding: 0;
+        }
+
+        body>#container {
+            height: auto;
+            min-height: 100%;
+        }
+
+        #content {
+            padding-bottom: 3em;
+        }
+    </style>
+</head>
+
+<body class="p-3 mb-2 bg-dark text-white">
+    <div id="container">
+        <a id="ddmenuLink" href="sharedMenu.html"> </a>
+        <main id="content">
+            <div class="text-right">
+                <label><a href="index.html">TS</a> > Quienes somos</label>
+            </div>
+            <h3 class="text-center">Equipo de trabajo</h3>
+            <div id="accordion">
+
+                <div class="card bg-secondary text-white">
+                    <div class="card-header">
+                        <a class="collapsed card-link text-white" data-toggle="collapse" href="#collapseOne">
+                            Fia Sare, Federico Gabriel
+                            <i class="indicator fa fa-plus-circle float-right"></i>
+                        </a>
+                    </div>
+                    <div id="collapseOne" class="collapse" data-parent="#accordion">
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-sm-2">
+                                    <div class="text-center"><img src="fede.png" alt="" width="100" height="100"></div>
+                                </div>
+                                <div class="col-sm-10">
+                                    <label><b>Email:</b> fedefiasare@gmail.com </label>
+                                    <p><b>Acerca de m&iacute:</b> Actualmente estoy estudiando Ingenier&iacutea en
+                                        Sistemas de Informaci&oacuten, me apasionan el desarrollo y las nuevas
+                                        tecnolog&iacuteas. Adem&aacutes de trabajar en C# con ASP.NET, tengo
+                                        conocimientos sobre javascript y diversos frameworks como Vuejs, Angularjs,
+                                        Vuetifyjs entre otros...</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card bg-secondary text-white">
+                    <div class="card-header">
+                        <a class="collapsed card-link  text-white" data-toggle="collapse" href="#collapseTwo">
+                            Navarro Bord&oacuten, Del Jes&uacutes Mat&iacuteas Ariel
+                            <i class="indicator fa fa-plus-circle float-right"></i>
+                        </a>
+                    </div>
+                    <div id="collapseTwo" class="collapse" data-parent="#accordion">
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-sm-2">
+                                    <div class="text-center"><img src="matias.jpg" alt="" width="100" height="100"></div>
+                                </div>
+                                <div class="col-sm-10">
+                                    <label><b>Email:</b> navarromatias1996@gmail.com</label>
+                                    <p><b>Acerca de m&iacute:</b> Soy estudiante de ingenier&iacutea en
+                                        Sistemas de Informaci&oacuten, apasionado por la m&uacutesica
+                                        electr&oacutenica, el
+                                        arte en general y los viajes, por lo cual junto a mi compañero
+                                        decidimos crear esta
+                                        propuesta.
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+    <a id="ddfooterLink" href="sharedFooter.html"> </a>
+
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+        crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49"
+        crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.2/js/bootstrap.min.js" integrity="sha384-o+RDsa0aLu++PJvFqy8fFScvbHFLtbvScb8AjopnFD+iEQ7wo/CG0xlczd+2O/em"
+        crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU"
+        crossorigin="anonymous">
+</body>
+
+</html>
+
+<script>
+    $('.collapse').on('shown.bs.collapse', function () {
+        $(this).parent().find(".fa-plus-circle").removeClass("fa-plus-circle").addClass("fa-minus-circle");
+    }).on('hidden.bs.collapse', function () {
+        $(this).parent().find(".fa-minus-circle").removeClass("fa-minus-circle").addClass("fa-plus-circle");
+    });
+</script>
