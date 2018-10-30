@@ -14,43 +14,66 @@ async function fetchAsync(url) {
 }
 
 function fillTable(array) {
-  let body = document.getElementsByTagName("tbody")[0];
-  body.innerHTML = "";
-  array.forEach(element => {
-    let row = `<tr>
-      <td>${element.id.name}</td>
-      <td>${element.id.value ? element.id.value : "s/n"}</td>
-      <td>${element.name.title}</td>
-      <td>${element.name.last}</td>
-      <td>${element.name.first}</td>
-      <td>${element.gender}</td>
-      <td>${element.dob.age}</td>
-      <td>${new Date(element.dob.date).toLocaleDateString("es")}</td>
-      <td>${element.location.city}</td>
-      <td>${element.location.state}</td>
-      <td>${element.location.street}</td>
-      <td>${element.cell}</td>
-      <td>${element.phone}</td>
-      <td>${element.email}</td>
-      <td>${element.login.username}</td>
-      <td>${element.login.password}</td>
-      <td><a href=${element.picture.large}>Image</a></a></td>
-      </tr>`;
-    body.innerHTML = body.innerHTML.concat(row);
-  });
+  let cards = document.getElementById("cards");
+  cards.innerHTML = "";
+  for (i = 0; i < array.length; i += 2) {
+    let elem1 = array[i];
+    let row = `
+      <div class="row">
+        <div class="col-sm-6">
+            <div class="form-group">
+                <div class="card">
+                    <div class="card-header">
+                        <div class="text-center">
+                            <img src="${elem1.picture.large}" class="rounded-circle"alt="Cinque Terre">
+                        </div>
+                    </div>
+                    <div class="card-body">
+                      <h3 class="text-capitalize">${elem1.name.first} ${elem1.name.last}</h3>
+                      <label><b>Usuario</b>: ${elem1.login.username}</label><br/>
+                      <label><b>Email</b>: ${elem1.email}</label><br/>
+                      <label><b>Tel&eacutefono</b>: ${elem1.cell}</label>   
+                    </div>
+                </div>
+            </div>
+        </div>`;
+    let elem2 = array[i + 1];
+    if (elem2) {
+      let str = `
+      <div class="col-sm-6">
+        <div class="form-group">
+          <div class="card">
+              <div class="card-header">
+                  <div class="text-center">
+                      <img src="${elem2.picture.large}" class="rounded-circle"alt="Cinque Terre">
+                  </div>
+              </div>
+              <div class="card-body">
+                <h3 class="text-capitalize">${elem2.name.first} ${elem2.name.last}</h3>
+                <label><b>Usuario</b>: ${elem2.login.username}</label><br/>
+                <label><b>Email</b>: ${elem2.email}</label><br/>
+                <label><b>Tel&eacutefono</b>: ${elem2.cell}</label>                     
+              </div>
+          </div>
+        </div>
+      </div>`;
+      row = row + str;
+    }
+    row.concat("</div>");
+    cards.innerHTML = cards.innerHTML.concat(row);
+  }
 }
 
-function filterArray(value) {
-  if (value) {
+function filterArray() {
+  let name = document.getElementById("name").value;
+  let gender = document.getElementById("gender").value;
+    console.log(gender);
     let filterArray = array.filter(e => {
       return (
-        e.gender === value ||
-        e.name.first.includes(value) ||
-        e.name.last.includes(value)
+        (!gender || e.gender === gender) &&
+        (e.name.first.includes(name) || e.name.last.includes(name))
       );
     });
     fillTable(filterArray);
-  } else {
-    fillTable(array);
   }
-}
+
