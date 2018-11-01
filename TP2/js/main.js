@@ -25,12 +25,18 @@ function fillTable(array) {
                 <div class="card">
                     <div class="card-header">
                         <div class="text-center">
-                            <img src="${elem1.picture.large}" class="rounded-circle"alt="Cinque Terre">
+                            <img src="${
+                              elem1.picture.large
+                            }" class="rounded-circle"alt="Cinque Terre">
                         </div>
                     </div>
                     <div class="card-body">
-                      <h3 class="text-capitalize">${elem1.name.first} ${elem1.name.last}</h3>
-                      <label><b>Usuario</b>: ${elem1.login.username}</label><br/>
+                      <h3 class="text-capitalize">${elem1.name.first} ${
+      elem1.name.last
+    }</h3>
+                      <label><b>Usuario</b>: ${
+                        elem1.login.username
+                      }</label><br/>
                       <label><b>Email</b>: ${elem1.email}</label><br/>
                       <label><b>Tel&eacutefono</b>: ${elem1.cell}</label>   
                     </div>
@@ -45,14 +51,20 @@ function fillTable(array) {
           <div class="card">
               <div class="card-header">
                   <div class="text-center">
-                      <img src="${elem2.picture.large}" class="rounded-circle"alt="Cinque Terre">
+                      <img src="${
+                        elem2.picture.large
+                      }" class="rounded-circle"alt="Cinque Terre">
                   </div>
               </div>
               <div class="card-body">
-                <h3 class="text-capitalize">${elem2.name.first} ${elem2.name.last}</h3>
+                <h3 class="text-capitalize">${elem2.name.first} ${
+        elem2.name.last
+      }</h3>
                 <label><b>Usuario</b>: ${elem2.login.username}</label><br/>
                 <label><b>Email</b>: ${elem2.email}</label><br/>
-                <label><b>Tel&eacutefono</b>: ${elem2.cell}</label>                     
+                <label><b>Tel&eacutefono</b>: ${
+                  elem2.cell
+                }</label>                     
               </div>
           </div>
         </div>
@@ -65,15 +77,13 @@ function fillTable(array) {
 }
 
 function filterArray() {
-  let name = document.getElementById("name").value;
+  let name = document.getElementById("name").value.trim();
   let gender = document.getElementById("gender").value;
-    console.log(gender);
-    let filterArray = array.filter(e => {
-      return (
-        (!gender || e.gender === gender) &&
-        (e.name.first.includes(name) || e.name.last.includes(name))
-      );
-    });
-    fillTable(filterArray);
-  }
-
+  let filterArray = array.filter(e => {
+    return (
+      (!gender || e.gender === gender) &&
+      (!name || e.name.first.concat(" ", e.name.last).includes(name))
+    );
+  });
+  fillTable(filterArray);
+}
