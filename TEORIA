@@ -1,0 +1,69 @@
+HTML: Lenguaje de etiquetas que manipula el formato del documento
+CSS: Para cambiar la apariencia
+
+
+JAVASCRIPT: Manipular eventos del usuario y actualizacion del navegador web (logica)
+
+arquitectura básica : usamos un navegador web p/comunicarnos(USER AGENT), con un sv que cumple/brinda varios servicios (dominio, bdd, impresoras)
+Nos comunicamos desde el navegador web al sv por medio de url's (uniform resource location) 
+http: protocolo de transporte de hipertexto = transporta texto plano -> tabaja en puerto 80
+https: diferente al http normal porque el texto va cifrado -> trabaja en puerto 443
+
+URL => http://localhost:5000/carpeta/subcarpeta/archivo.php
+
+Esquema de comunicacion
+	envia solicitud
+1 --------------------------------------------------------> 2 busca archivo (en disco interno)
+3 <--------------------------------------------------------	y responde 
+
+			Solicitud (request)     		S										Solicitud tiene header y data.
+USER         ----------------------------------->   	E
+AGENT     <------------------------------------    	R
+               		Respuesta (response)       V										Respuesta tiene header y data.
+
+x509: usa cifrados digitales en el navegador web
+
+ERRORES:
+404 Not found : no existe el archivo
+202 ok: success
+
+fetch ->
+
+promise ->
+
+PASOS DE LA SOLICITUD
+1 enviar solicitud
+2 buscar el archivo
+3 ejecutar el archivo
+4 resultado en html generalmente
+5 retornar
+
+MVC es el mas usado porque es el mas apropiado para trabajar con el paradigma orientado a objetos.
+
+Laravel: no es solamente MVC tiene muchas cosas mas, se agrega el concepto de rutas, los middelwares
+
+Middelwares: filtros para la ruta predefinido (ej: usuario identificado, seguridad) se ejecutan antes de que llegue el codigo del controlador.
+
+Rutas: hace referencia a la URI -> no tiene todo el nombre completo de la aplicacion, siempre es relativa a la carpeta inicial del proyecto
+
+Blade: motor de plantilla de laravel
+@{
+guest: usuario visitante no logueado
+else: una vez que se loguea
+
+}
+
+Variable de entorno: variables del SO
+
+PACKET MANAGE
+UI:  NPM / BOWER / YARN
+BACK: COMPOSET(PHP) / MAVEN(JAVA) / NUGET(C#)
+
+- Archivos CSS arriba en head: porque el navegador interpreta linea por linea el documento es para dar tiempo al archivo a que se descargue hasta que se termine de interpretar el resto del documento
+
+- Formato documento
+1) header
+2) main
+3) footer
+
+adminlte2 -> plantilla armada completa
