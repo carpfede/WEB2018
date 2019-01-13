@@ -167,6 +167,7 @@ return [
         /*
          * Package Service Providers...
          */
+        'Debugbar' => Barryvdh\Debugbar\ServiceProvider::class,
 
         /*
          * Application Service Providers...
