@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Auth;
 use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Http\Request;
+use Brian2694\Toastr\Facades\Toastr;
 
 class LoginController extends Controller
 {
@@ -45,6 +46,9 @@ class LoginController extends Controller
 
     public function login(Request $request)
     {
+        Toastr::success('Messages in here', 'Title', ["positionClass" => "toast-bottom-right"]);
+        Toastr::error('Messages in here', 'Title');
+
         return view('auth.login');
     }
 
