@@ -51,7 +51,7 @@ class LoginController extends Controller
         $password = $request->password;
         // Get user data
     
-        $user = \App\User::where('username', $username)
+        $user = \App\Domain\User::where('username', $username)
                 ->where('disabled', false)
                 ->first();
 
