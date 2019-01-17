@@ -3,11 +3,6 @@
 namespace App\Domain;
 
 use Illuminate\Database\Eloquent\Model;
-use App\Domain\Role;
-use App\Domain\User;
-use App\Domain\Project;
-use App\Domain\Task;
-use App\Domain\SubTask;
 
 class Member extends Model
 {
