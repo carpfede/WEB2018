@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Http\Request;
 use Brian2694\Toastr\Facades\Toastr;
+use Illuminate\Support\Facades\Hash;
 
 class LoginController extends Controller
 {
@@ -46,10 +47,24 @@ class LoginController extends Controller
 
     public function login(Request $request)
     {
-        Toastr::success('Messages in here', 'Title', ["positionClass" => "toast-bottom-right"]);
-        Toastr::error('Messages in here', 'Title');
+        $username = $request->username;
+        $password = $request->password;
+        // Get user data
+    
+        $user = \App\User::where('username', $username)
+                ->where('disabled', false)
+                ->first();
 
-        return view('auth.login');
+        
+        // Check
+        if (!empty($user) && Hash::check($password, $user->password)) {
+            // logged in
+            Toastr::success('', 'Logeo exitoso', ["positionClass" => "toast-bottom-right"]);
+            return view('home');
+        } else {
+            // Eorror
+            Toastr::error('Credenciales invalidas', 'Error de autenticación', ["positionClass" => "toast-bottom-right"]);
+            return view('auth.login');
+        }
     }
-
 }

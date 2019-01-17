@@ -30,7 +30,7 @@
                     <div class="input-group-prepend">
                       <span class="input-group-text"><i class="fas fa-user"></i></span>
                     </div>
-                    <input type="text" class="form-control" placeholder="Username" id="username">
+                    <input type="text" class="form-control" placeholder="Username" name="username">
                   </div>
                 </div>
                 <div class="form-group">
@@ -38,7 +38,7 @@
                     <div class="input-group-prepend">
                       <span class="input-group-text"><i class="fas fa-user"></i></span>
                     </div>
-                    <input type="password" id="password" class="form-control" placeholder="Contraseña">
+                    <input type="password" name="password" class="form-control" placeholder="Contraseña">
                   </div>
                 </div>
                 <div class="form-group">
