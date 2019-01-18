@@ -18,7 +18,6 @@ class CreateRolesTable extends Migration
             $table->string('name',128)->unique();
             $table->string('description');
             $table->boolean('system');
-            $table->timestamps();
         });
     }
 

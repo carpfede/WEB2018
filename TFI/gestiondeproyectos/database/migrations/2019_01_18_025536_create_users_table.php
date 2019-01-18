@@ -21,7 +21,6 @@ class CreateUsersTable extends Migration
             $table->boolean('disabled');
             $table->unsignedInteger('member_id');
             $table->foreign('member_id')->references('id')->on('members');
-            $table->timestamps();
         });
     }
 

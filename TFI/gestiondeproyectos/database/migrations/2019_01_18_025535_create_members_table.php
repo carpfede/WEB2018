@@ -19,11 +19,10 @@ class CreateMembersTable extends Migration
             $table->string('lastName');
             $table->string('address');
             $table->date('birthday');
-            $table->bigInteger('CUIT',12)->unique();
+            $table->string('CUIT',100)->unique();
             $table->string('email',100)->unique();
             $table->unsignedInteger('role_id');
             $table->foreign('role_id')->references('id')->on('roles');
-            $table->timestamps();
         });
     }
 

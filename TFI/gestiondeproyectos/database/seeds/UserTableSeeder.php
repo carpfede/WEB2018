@@ -13,12 +13,11 @@ class UserTableSeeder extends Seeder
     {
         App\Domain\User::create(
                 [
-                    'email' => 'admin@gmail.com',
                     'username' => 'admin',
                     'password' => bcrypt('123456'),
                     'remember_token' => str_random(10),
                     'disabled' => false,
-                    'member_id' => 1
+                    'member_id' => App\Domain\Member::where('id', 1)->get(['id'])->first()->id
                 ]
         );
 
