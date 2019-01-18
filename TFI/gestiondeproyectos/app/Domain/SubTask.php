@@ -4,7 +4,7 @@ namespace App\Domain;
 
 use Illuminate\Database\Eloquent\Model;
 
-class SubTask extends Model
+class Subtask extends Model
 {
     public $timestamps = false;
 
