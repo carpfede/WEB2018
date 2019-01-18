@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateMembersProjectsTable extends Migration
+class CreateMemberProjectTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,7 +13,7 @@ class CreateMembersProjectsTable extends Migration
      */
     public function up()
     {
-        Schema::create('members_projects', function (Blueprint $table) {
+        Schema::create('member_project', function (Blueprint $table) {
             $table->increments('id');
             $table->unsignedInteger('member_id');
             $table->foreign('member_id')->references('id')->on('members');
