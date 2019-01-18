@@ -14,12 +14,16 @@ use Faker\Generator as Faker;
 */
 
 $factory->define(App\Domain\User::class, function (Faker $faker) {
+    $members_ids = \DB::table('members')->select('id')->get();
+    $member_id = $faker->unique()->randomElement($members_ids)->id;
+
+
     return [
-        'name' => $faker->name,
         'email' => $faker->unique()->safeEmail,
         'username' => $faker->name,
         'password' => '$2y$10$TKh8H1.PfQx37YgCzwiKb.KjNyWgaHb9cbcoQgdIVFlYg7B77UdFm', // secret
         'remember_token' => str_random(10),
-        'disabled' => false
+        'disabled' => false,
+        'member_id' => $member_id
     ];
 });
