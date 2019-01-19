@@ -15,6 +15,16 @@ class CreateTasksTable extends Migration
     {
         Schema::create('tasks', function (Blueprint $table) {
             $table->increments('id');
+            $table->string('name');
+            $table->unsignedInteger('priority');
+            $table->enum('status', ['Hacer', 'EnProgreso', 'Resuelta', 'Testing', 'Cancelada']);
+            $table->enum('type', ['NuevaFuncion', 'Tarea', 'Error', 'Soporte']);	        	        
+            $table->string('description');
+            $table->string('attachments');
+            $table->unsignedInteger('member_id');
+            $table->foreign('member_id')->references('id')->on('members');
+            $table->unsignedInteger('sprint_id');
+            $table->foreign('sprint_id')->references('id')->on('sprints');
         });
     }
 
