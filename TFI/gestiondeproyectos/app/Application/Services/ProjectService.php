@@ -3,6 +3,7 @@
 namespace App\Application\Services;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class ProjectService{
 
@@ -11,4 +12,7 @@ class ProjectService{
         return \App\Domain\Project::all();
     }
 
+    public function findCurrent(){
+        return Auth::user()->projects;
+    }
 }

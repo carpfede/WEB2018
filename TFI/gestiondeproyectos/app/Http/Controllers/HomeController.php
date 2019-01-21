@@ -29,16 +29,9 @@ class HomeController extends Controller
      */
     public function index()
     {
-        $projects = $this->service->findAll();
-
-        foreach ($projects as $value) {
-            # code...
-            echo '<pre>'.var_dump($value).'</pre>';
-        }
-
-        Cache::add('projects',$projects,100000);
-
+        $projects = $this->service->findCurrent();
+        Cache::forget('projects');
+        Cache::add('projects',$projects,1);
         return view('home');
-        // return view('home');
     }
 }

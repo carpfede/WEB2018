@@ -38,6 +38,7 @@
                         </a>
                         <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
                             <a class="dropdown-item" href="#">Miembros</a>
+                            <hr>
                             <a class="dropdown-item" href="#">Roles</a>
                         </div>
                     </li>
@@ -47,9 +48,12 @@
                             <span>Proyectos</span>
                         </a>
                         <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                            @foreach ([] as $p)
-                            <a class="dropdown-item" href="">{{$p->shortname}}</a>
-                            <hr> @endforeach
+                            @if(!is_null(cache()->get('projects'))) 
+                                @foreach (cache()->get('projects') as $p)
+                                    <a class="dropdown-item" href="">{{$p->shortname}}</a>
+                                    <hr> 
+                                @endforeach 
+                            @endif
                             <a class="dropdown-item" href="#">Ver todos</a>
                         </div>
                     </li>
