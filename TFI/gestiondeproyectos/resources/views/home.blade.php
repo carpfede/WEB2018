@@ -11,7 +11,6 @@
                         <div class="alert alert-success">
                             {{ session('status') }}
                         </div>
-
                     You are logged in!
                 </div>
             </div>

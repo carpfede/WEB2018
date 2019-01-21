@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Application\Services\ProjectService;
+use Illuminate\Support\Facades\Cache;
 
 class HomeController extends Controller
 {
@@ -11,8 +13,12 @@ class HomeController extends Controller
      *
      * @return void
      */
-    public function __construct()
+
+    private $service;
+
+    public function __construct(ProjectService $service)
     {
+        $this->service = $service;
         $this->middleware('auth');
     }
 
@@ -23,6 +29,16 @@ class HomeController extends Controller
      */
     public function index()
     {
+        $projects = $this->service->findAll();
+
+        foreach ($projects as $value) {
+            # code...
+            echo '<pre>'.var_dump($value).'</pre>';
+        }
+
+        Cache::add('projects',$projects,100000);
+
         return view('home');
+        // return view('home');
     }
 }
