@@ -32,7 +32,7 @@ class LoginController extends Controller
         if (!empty($user) && Hash::check($password, $user->password)) {
             Toastr::success('', 'Logeo exitoso', ["positionClass" => "toast-bottom-right"]);
             Auth::login($user, true);
-            return redirect('home');
+            return redirect()->route('home');
         } else {
             Toastr::error('Credenciales invalidas', 'Error de autenticación', ["positionClass" => "toast-bottom-right"]);
             return view('auth.login');

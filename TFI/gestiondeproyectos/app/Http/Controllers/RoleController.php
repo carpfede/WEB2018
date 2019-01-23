@@ -49,7 +49,7 @@ class RoleController extends Controller
             ]
         );
 
-        $isValid = $this->service->save($rol);
+        $isValid = $this->service->save($role);
 
         if(!$isValid)
         {
@@ -57,7 +57,7 @@ class RoleController extends Controller
             return back();
         }
 
-        Toastr::success('Se guardo correctamente', '', ["positionClass" => "toast-bottom-right"]);
+        Toastr::success('Se guardó correctamente', '', ["positionClass" => "toast-bottom-right"]);
         return redirect()->route('roles.index');
     }
 
@@ -101,7 +101,7 @@ class RoleController extends Controller
             return back();
         }
 
-        Toastr::success('Se guardo correctamente', '', ["positionClass" => "toast-bottom-right"]);
+        Toastr::success('Se guardó correctamente', '', ["positionClass" => "toast-bottom-right"]);
         return redirect()->route('roles.index');
     }
 

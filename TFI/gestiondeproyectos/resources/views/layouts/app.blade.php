@@ -40,7 +40,7 @@
                             <span>Datos maestros</span>
                         </a>
                         <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                            <a class="dropdown-item" href="#">Miembros</a>
+                            <a class="dropdown-item" href="{{route('members.index')}}">Miembros</a>
                             <hr>
                             <a class="dropdown-item" href="{{route('roles.index')}}">Roles</a>
                         </div>
@@ -78,9 +78,7 @@
                 </ul>
             </div>
         </nav>
-        <div class="container-fluid">
-            @yield('content')
-        </div>
+        @yield('content')
     </div>
 
     <!-- Optional JavaScript -->

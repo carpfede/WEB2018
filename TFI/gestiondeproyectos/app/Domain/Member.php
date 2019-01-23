@@ -8,6 +8,8 @@ class Member extends Model
 {
     public $timestamps = false;
 
+    protected $fillable = ['firstName','lastName','address','birthday','CUIT','email','role'];
+
     public function role()
     {
         return $this->belongsTo(Role::class);

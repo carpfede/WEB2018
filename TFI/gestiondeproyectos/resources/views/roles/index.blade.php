@@ -13,6 +13,8 @@
                         <th>Descripción</th>
                         <th>Sistema</th>
                         <th></th>
+                        <th></th>
+                        <th></th>
                     </tr>
                 </thead>
                 <tbody>
@@ -35,10 +37,12 @@
                                 @else
                                     <a href="{{route('roles.edit',$role->id)}}"><i class="far fa-edit text-info"></i></a>
                                 @endif
-                                <span> | </span>
+                            </td>
+                            <td>
                                 <a href="{{route('roles.show',$role->id)}}"><i class="far fa-eye text-secondary" aria-hidden="true"></i></a>
+                            </td>
+                            <td>
                                 @if(!$role->system)
-                                    <span> | </span>
                                     <a href="{{route('roles.delete', $role->id)}}"><i class="far fa-trash-alt text-danger"></i></a>
                                 @endif
                             </td>

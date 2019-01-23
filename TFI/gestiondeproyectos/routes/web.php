@@ -17,3 +17,6 @@ Route::get('/', 'HomeController@index')->name('home');
 
 Route::resource('roles', 'RoleController');
 Route::get('/roles/{id}/delete','RoleController@delete')->name('roles.delete');
+
+Route::resource('members', 'MemberController');
+Route::get('/members/{id}/delete','MemberController@delete')->name('members.delete');
