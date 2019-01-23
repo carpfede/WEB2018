@@ -2,19 +2,37 @@
 
 @section('content')
 <div class="container">
-    <div class="row">
-        <div class="col-md-8 col-md-offset-2">
-            <div class="panel panel-default">
-                <div class="panel-heading">Dashboard</div>
-
-                <div class="panel-body">
-                        <div class="alert alert-success">
-                            {{ session('status') }}
-                        </div>
-                    You are logged in!
-                </div>
-            </div>
-        </div>
-    </div>
+    <canvas id="myChart"></canvas>
 </div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.3/Chart.bundle.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.3/Chart.min.js"></script>
+
+<script>
+    var ctx = document.getElementById("myChart").getContext('2d');
+
+    var labels = new Array();
+    var tasks = new Array();
+
+    console.log({{cache()->get('projects')}});
+    var myChart = new Chart(ctx, {
+        type: 'bar',
+        data: {
+            labels: labels,
+            datasets: [{
+                label: 'Tareas por projecto',
+                data: tasks,
+                borderWidth: 1
+            }]
+            },
+        options: {
+            scales: {
+                yAxes: [{
+                    ticks: {
+                        beginAtZero:true
+                    }
+                }]
+            }
+        }
+    });
+</script>
 @endsection

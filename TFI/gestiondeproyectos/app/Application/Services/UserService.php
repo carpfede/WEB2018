@@ -2,8 +2,6 @@
 
 namespace App\Application\Services;
 
-use Illuminate\Http\Request;
-
 class UserService{
 
     public function findOne($username)

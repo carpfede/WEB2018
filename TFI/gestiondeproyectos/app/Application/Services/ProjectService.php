@@ -2,7 +2,6 @@
 
 namespace App\Application\Services;
 
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
 class ProjectService{
