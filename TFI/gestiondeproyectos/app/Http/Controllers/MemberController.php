@@ -114,8 +114,9 @@ class MemberController extends Controller
     public function edit($id)
     {
         $member = $this->service->findById($id);
+        $roles = $this->roleservice->findAll();
 
-        return view('members.edit',['member' => $member]);
+        return view('members.edit',['member' => $member,'roles' => $roles]);
     }
 
     public function update(Request $request, $id)
@@ -168,7 +169,7 @@ class MemberController extends Controller
                 'birthday' => $birthday,
                 'CUIT' => $CUIT,
                 'email' => $email,
-                'role' => $role
+                'role_id' => $role
             ]
         );
 

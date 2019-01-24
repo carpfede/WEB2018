@@ -30,7 +30,7 @@ class MemberService{
 
         $user = new User();
         
-        $user->username = $member->firstName[0].str_replace(' ', '', $member->lastName);
+        $user->username = strtolower($member->firstName[0].str_replace(' ', '', $member->lastName));
         $user->password = bcrypt('123456');
         $user->remember_token = str_random(10);
         $user->disabled = false;
@@ -48,11 +48,11 @@ class MemberService{
         $member->birthday = $item->birthday;
         $member->CUIT = $item->CUIT;
         $member->email = $item->email;
-        $member->role = $item->role;
+        $member->role_id = $item->role_id;
 
         $user = $member->user;
 
-        $user->username = $member->firstName[0].str_replace(' ', '', $member->lastName);
+        $user->username = strtolower($member->firstName[0].str_replace(' ', '', $member->lastName));
 
         $isValid = $this->userservice->update($user, $user->id);
 
