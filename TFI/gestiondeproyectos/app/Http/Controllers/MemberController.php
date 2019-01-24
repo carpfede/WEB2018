@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Domain\Miembro;
+use App\Domain\Member;
 use Illuminate\Http\Request;
 use App\Application\Services\MemberService;
 use App\Application\Services\RoleService;
@@ -36,6 +36,8 @@ class MemberController extends Controller
 
     public function store(Request $request)
     {
+        $back = false;
+
         $firstName = $request->get('firstName');
         $lastName = $request->get('lastName');
         $address = $request->get('address');
@@ -47,30 +49,34 @@ class MemberController extends Controller
         if(is_null($CUIT))
         {
             Toastr::error('CUIT obligatorio', 'Error de datos', ["positionClass" => "toast-bottom-right"]);
-            return back();
+            $back = true;
         }
 
         if(is_null($firstName))
         {
             Toastr::error('Nombre obligatorio', 'Error de datos', ["positionClass" => "toast-bottom-right"]);
-            return back();
+            $back = true;
         }
 
         if(is_null($lastName))
         {
             Toastr::error('Apellido obligatorio', 'Error de datos', ["positionClass" => "toast-bottom-right"]);
-            return back();
+            $back = true;
         }
 
         if(is_null($email))
         {
             Toastr::error('E-mail obligatorio', 'Error de datos', ["positionClass" => "toast-bottom-right"]);
-            return back();
+            $back = true;
         }
 
         if(is_null($role))
         {
             Toastr::error('Rol obligatorio', 'Error de datos', ["positionClass" => "toast-bottom-right"]);
+            $back = true;
+        }
+
+        if($back){
             return back();
         }
 
@@ -82,16 +88,16 @@ class MemberController extends Controller
                 'birthday' => $birthday,
                 'CUIT' => $CUIT,
                 'email' => $email,
-                'role' => $role
+                'role_id' => $role
             ]
         );
-
+        
         $isValid = $this->service->save($member);
 
         if(!$isValid)
         {
             Toastr::error('Contactese con el administrador!', 'Error de conexión', ["positionClass" => "toast-bottom-right"]);
-            return back();
+            $back = true;
         }
 
         Toastr::success('Se guardó correctamente', '', ["positionClass" => "toast-bottom-right"]);
@@ -114,6 +120,8 @@ class MemberController extends Controller
 
     public function update(Request $request, $id)
     {
+        $back = false;
+
         $firstName = $request->get('firstName');
         $lastName = $request->get('lastName');
         $address = $request->get('address');
@@ -125,31 +133,31 @@ class MemberController extends Controller
         if(is_null($CUIT))
         {
             Toastr::error('CUIT obligatorio', 'Error de datos', ["positionClass" => "toast-bottom-right"]);
-            return back();
+            $back = true;
         }
 
         if(is_null($firstName))
         {
             Toastr::error('Nombre obligatorio', 'Error de datos', ["positionClass" => "toast-bottom-right"]);
-            return back();
+            $back = true;
         }
 
         if(is_null($lastName))
         {
             Toastr::error('Apellido obligatorio', 'Error de datos', ["positionClass" => "toast-bottom-right"]);
-            return back();
+            $back = true;
         }
 
         if(is_null($email))
         {
             Toastr::error('E-mail obligatorio', 'Error de datos', ["positionClass" => "toast-bottom-right"]);
-            return back();
+            $back = true;
         }
 
         if(is_null($role))
         {
             Toastr::error('Rol obligatorio', 'Error de datos', ["positionClass" => "toast-bottom-right"]);
-            return back();
+            $back = true;
         }
 
         $member = new Member(
@@ -169,7 +177,7 @@ class MemberController extends Controller
         if(!$isValid)
         {
             Toastr::error('Contactese con el administrador!', 'Error de conexión', ["positionClass" => "toast-bottom-right"]);
-            return back();
+            $back = true;
         }
 
         Toastr::success('Se guardó correctamente', '', ["positionClass" => "toast-bottom-right"]);

@@ -2,6 +2,7 @@
 
 namespace App\Application\Services;
 use App\Domain\Member;
+use App\Domain\User;
 use App\Application\Services\UserService;
 
 class MemberService{
@@ -21,7 +22,21 @@ class MemberService{
     }
 
     public function save($member){
-        return $member->save();
+        $isValid = $member->save();
+        
+        if(!$isValid){
+            return false;
+        }
+
+        $user = new User();
+        
+        $user->username = $member->firstName[0].str_replace(' ', '', $member->lastName);
+        $user->password = bcrypt('123456');
+        $user->remember_token = str_random(10);
+        $user->disabled = false;
+        $user->member_id = $member->id;
+
+        return $this->userservice->save($user) && $isValid;    
     }
 
     public function update($item,$id){
@@ -37,7 +52,7 @@ class MemberService{
 
         $user = $member->user;
 
-        $user->username = $member->firstName[0].$member->lastName;
+        $user->username = $member->firstName[0].str_replace(' ', '', $member->lastName);
 
         $isValid = $this->userservice->update($user, $user->id);
 

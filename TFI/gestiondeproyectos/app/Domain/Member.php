@@ -8,7 +8,7 @@ class Member extends Model
 {
     public $timestamps = false;
 
-    protected $fillable = ['firstName','lastName','address','birthday','CUIT','email','role'];
+    protected $fillable = ['firstName','lastName','address','birthday','CUIT','email','role_id'];
 
     public function role()
     {

@@ -17,8 +17,8 @@ class CreateMembersTable extends Migration
             $table->increments('id');
             $table->string('firstName');
             $table->string('lastName');
-            $table->string('address');
-            $table->date('birthday');
+            $table->string('address')->nullable();
+            $table->date('birthday')->nullable();
             $table->string('CUIT',100)->unique();
             $table->string('email',100)->unique();
             $table->unsignedInteger('role_id');

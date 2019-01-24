@@ -13,6 +13,11 @@ class UserService{
                 ->first();
     }
 
+    public function save($user)
+    {
+        return $user->save();
+    }
+
     public function update($item, $id){
         $user = User::find($id);
 

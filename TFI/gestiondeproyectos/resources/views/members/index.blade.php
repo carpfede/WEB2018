@@ -38,10 +38,10 @@
                                     </div>
                                 </td>
                                 <td>
-                                    <a href="{{route('members.edit',$role->id)}}"><i class="far fa-edit text-info"></i></a>
+                                    <a href="{{route('members.edit',$member->id)}}"><i class="far fa-edit text-info"></i></a>
                                 </td>
                                 <td>
-                                    <a href="{{route('members.show',$role->id)}}"><i class="far fa-eye text-secondary" aria-hidden="true"></i></a>
+                                    <a href="{{route('members.show',$member->id)}}"><i class="far fa-eye text-secondary" aria-hidden="true"></i></a>
                                 </td>
                             </tr>
                         @endforeach
