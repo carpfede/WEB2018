@@ -21,7 +21,7 @@
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach($members as $member)
+                        @foreach($members->filter(function($m){ return $m->user->username != 'admin';}) as $member)
                             <tr>
                                 <td>{{$member->firstName}}</td>
                                 <td>{{$member->lastName}}</td>

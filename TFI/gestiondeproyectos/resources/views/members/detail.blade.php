@@ -4,35 +4,61 @@
 <div class="container">
     <div class="card">
         <div class="card-body">
-            <h4 class="card-title">Detalle del Rol</h4>
+            <h4 class="card-title">Detalles del Miembro</h4>
             <div class="form-group row justify-content-center">
                 <label class="col-2 text-right">Nombre</label>
                 <div class="col-4">
-                    <input type="text" class="form-control form-control-sm" name="name" value="{{$role->name}}" disabled>
+                    <input type="text" class="form-control form-control-sm" value="{{$member->firstName}}" disabled>
                 </div>
             </div>
             <div class="form-group row justify-content-center d-flex">
-                <label class="col-2 text-right">Descripción</label>
+                <label class="col-2 text-right">Apellido</label>
                 <div class="col-4">
-                <textarea class="form-control" rows="3" name="description" disabled>{{$role->description}}</textarea>
+                    <input type="text" class="form-control form-control-sm" value="{{$member->lastName}}" disabled>
                 </div>
             </div>
             <div class="form-group row justify-content-center d-flex">
-                <label class="col-2 text-right">Sistema</label>
+                <label class="col-2 text-right">Dirección</label>
                 <div class="col-4">
-                    <div class="form-check disabled">
-                        @if($role->system)
-                            <input type="checkbox" class="form-check-input" checked disabled>
-                        @else
-                            <input type="checkbox" class="form-check-input" disabled>
-                        @endif
-                    </div>
+                    <input type="text" class="form-control form-control-sm" value="{{$member->address}}" disabled>
+                </div>
+            </div>
+            <div class="form-group row justify-content-center d-flex">
+                <label class="col-2 text-right">Nacimiento</label>
+                <div class="col-4">
+                    <input type="date" class="form-control form-control-sm" value="{{$member->birthday}}" disabled>
+                </div>
+            </div>
+            <div class="form-group row justify-content-center d-flex">
+                <label class="col-2 text-right">CUIT</label>
+                <div class="col-4">
+                    <input type="text" class="form-control form-control-sm" value="{{$member->CUIT}}" disabled>
+                </div>
+            </div>
+            <div class="form-group row justify-content-center d-flex">
+                <label class="col-2 text-right">Email</label>
+                <div class="col-4">
+                    <input type="text" class="form-control form-control-sm" value="{{$member->email}}" disabled>
+                </div>
+            </div>
+            <div class="form-group row justify-content-center d-flex">
+                <label class="col-2 text-right">Rol</label>
+                <div class="col-4">
+                    <select class="form-control form-control-sm" name="role" disabled>
+                        <option value="">{{$member->role->name}}</option>
+                    </select>
+                </div>
+            </div>
+            <div class="form-group row justify-content-center d-flex">
+                <label class="col-2 text-right">Usuario</label>
+                <div class="col-4">
+                    <input type="text" class="form-control form-control-sm" value="{{$member->user->username}}" disabled>
                 </div>
             </div>
         </div>
     </div>
     <div class="mt-1">
-        <a href="{{route('roles.index')}}">Volver al listado</a>
+        <a href="{{route('members.index')}}">Volver al listado</a>
     </div>
 </div>
 @endsection
