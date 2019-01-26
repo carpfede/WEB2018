@@ -184,26 +184,4 @@ class MemberController extends Controller
         Toastr::success('Se guardó correctamente', '', ["positionClass" => "toast-bottom-right"]);
         return redirect()->route('members.index');
     }
-
-    public function destroy($id)
-    {
-        $isValid = $this->service->delete($id);
-
-        if(!$isValid)
-        {
-            Toastr::error('Contactese con el administrador!', 'Error de conexión', ["positionClass" => "toast-bottom-right"]);
-            return back();
-        }
-
-        Toastr::success('Se elimino correctamente', '', ["positionClass" => "toast-bottom-right"]);
-
-        return redirect()->route('members.index');
-    }
-
-    public function delete($id)
-    {
-        $member = $this->service->findById($id);
-
-        return view('members.delete',['role' => $member]);
-    }
 }
