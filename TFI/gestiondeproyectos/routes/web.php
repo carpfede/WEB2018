@@ -20,3 +20,5 @@ Route::get('/roles/{id}/delete','RoleController@delete')->name('roles.delete');
 
 Route::resource('members', 'MemberController');
 Route::get('/members/{id}/delete','MemberController@delete')->name('members.delete');
+
+Route::get('/projects','ProjectController@index')->name('projects.index');

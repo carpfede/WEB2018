@@ -54,10 +54,10 @@
                             @if(!is_null(cache()->get('projects'))) 
                                 @foreach (cache()->get('projects') as $p)
                                     <a class="dropdown-item" href="">{{$p->shortname}}</a>
-                                    <hr> 
                                 @endforeach 
+                                <hr> 
                             @endif
-                            <a class="dropdown-item" href="#">Ver todos</a>
+                            <a class="dropdown-item" href="{{ route('projects.index') }}">Ver todos</a>
                         </div>
                     </li>
                 </ul>

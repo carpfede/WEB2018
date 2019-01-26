@@ -8,6 +8,8 @@ class Project extends Model
 {
     public $timestamps = false;
 
+    protected $fillable = ['name','description','from','to','shortname'];
+
     public function members()
     {
         return $this->belongsToMany(Member::class);
