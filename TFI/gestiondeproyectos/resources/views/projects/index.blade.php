@@ -5,7 +5,7 @@
     <div class="card">
         <div class="card-body">
             <h4 class="card-title">Proyectos</h4>
-            <a href="{{route('roles.create')}}" class="float-right"><i class="fas fa-plus-circle fa-2x text-success"></i></i></a>
+            <a href="{{route('projects.create')}}" class="float-right"><i class="fas fa-plus-circle fa-2x text-success"></i></i></a>
             <table class="table table-striped">
                 <thead>
                     <tr>
@@ -28,11 +28,11 @@
                             <td><p>{{$project->description}}</p></td>
                             <td>{{$project->from}}</td>
                             <td>{{$project->to}}</td>
-                            <td>{{$project->sprints->last()->version}}</td>
+                            <td>{{$project->sprints->last()}}</td>
                             <td>{{$project->members->count()}}</td>
-                            <td>{{$project->tasks->count()}}</td>
+                            <!-- <td>{{$project->tasks}}</td> -->
                             <td>
-                                <a href="{{route('roles.show',$role->id)}}"><i class="far fa-eye text-secondary" aria-hidden="true"></i></a>
+                                <a href="{{route('projects.show',$project->id)}}"><i class="far fa-eye text-secondary" aria-hidden="true"></i></a>
                             </td>
                         </tr>
                     @endforeach

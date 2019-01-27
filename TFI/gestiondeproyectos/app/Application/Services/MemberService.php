@@ -14,7 +14,7 @@ class MemberService{
     }
 
     public function findAll(){
-        return Member::all();
+        return Member::wherehas('user', function($u) { $u->where('disabled',0); })->get();
     }
 
     public function findById($id){
