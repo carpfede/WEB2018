@@ -168,6 +168,7 @@ return [
          * Package Service Providers...
          */
         Barryvdh\Debugbar\ServiceProvider::class,
+        Uzzal\Acl\AclServiceProvider :: class,
         /*
          * Application Service Providers...
          */

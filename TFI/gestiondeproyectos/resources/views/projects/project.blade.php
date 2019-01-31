@@ -17,7 +17,7 @@
             </div>
             <div class="form-group row justify-content-center d-flex">
                 <label class="col-2 text-right">Descripción</label>
-                <div class="col-4">
+                <div class="col-10">
                 <textarea class="form-control" rows="3" disabled value="{{ $project->description }}"></textarea>
                 </div>
             </div>
@@ -29,6 +29,34 @@
                 <label class="col-2 text-right">Hasta</label>
                 <div class="col-4">
                     <input type="date" class="form-control form-control-sm" disabled value="{{ $project->to }}">
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="card bg-light">
+        <div class="card-body">
+            <div class="row">
+                <div class="col-2">
+                    <h5 class="card-title">Sprints</h5>
+
+                </div>
+                <div class="col-10">
+                    @php ($sprint = $project->sprints->last())
+                    <h4 class="card-title">Tareas</h4>
+                    <table class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th></th>
+                                <th>Nombre</th>
+                                <th>Estado</th>
+                                <th>Asignado a</th>
+                                <th>Tiempo restante</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            
+                        </tbody>
+                    </table>
                 </div>
             </div>
         </div>

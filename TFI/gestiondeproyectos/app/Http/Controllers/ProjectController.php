@@ -76,7 +76,7 @@ class ProjectController extends Controller
         }
 
         Toastr::success('Se guardó correctamente', '', ["positionClass" => "toast-bottom-right"]);
-        return redirect()->route('members.index');
+        return redirect()->route('projects.index');
     }
 
     public function show ($id)

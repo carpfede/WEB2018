@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "779036a45d77775c1a437d4b70efcdc8",
+    "content-hash": "0adafb722c80a23b9e85148f7c90f5d5",
     "packages": [
         {
             "name": "barryvdh/laravel-debugbar",
@@ -2503,6 +2503,51 @@
             "description": "CssToInlineStyles is a class that enables you to convert HTML-pages/files into HTML-pages/files with inline styles. This is very useful when you're sending emails.",
             "homepage": "https://github.com/tijsverkoyen/CssToInlineStyles",
             "time": "2017-11-27T11:13:29+00:00"
+        },
+        {
+            "name": "uzzal/acl",
+            "version": "v2.0.3",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/mahabubulhasan/acl.git",
+                "reference": "4c780855e43aad4c08720f9333dc89ec6f59fdb7"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/mahabubulhasan/acl/zipball/4c780855e43aad4c08720f9333dc89ec6f59fdb7",
+                "reference": "4c780855e43aad4c08720f9333dc89ec6f59fdb7",
+                "shasum": ""
+            },
+            "require": {
+                "laravel/framework": ">=5.3.0",
+                "php": ">=5.6.4"
+            },
+            "type": "library",
+            "autoload": {
+                "files": [
+                    "src/helpers.php"
+                ],
+                "psr-4": {
+                    "Uzzal\\Acl\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Mahabubul Hasan",
+                    "email": "codehasan@gmail.com"
+                }
+            ],
+            "description": "Basic access control list",
+            "keywords": [
+                "acl",
+                "dynamic permission",
+                "laravel"
+            ],
+            "time": "2018-03-22T11:22:42+00:00"
         },
         {
             "name": "vlucas/phpdotenv",

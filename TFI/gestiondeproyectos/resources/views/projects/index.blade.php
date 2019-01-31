@@ -28,9 +28,9 @@
                             <td><p>{{$project->description}}</p></td>
                             <td>{{$project->from}}</td>
                             <td>{{$project->to}}</td>
-                            <td>{{$project->sprints->last()}}</td>
-                            <td>{{$project->members->count()}}</td>
-                            <!-- <td>{{$project->tasks}}</td> -->
+                            <td class="text-center">{{@nullsafe($project->sprints->last()->version)}}</td>
+                            <td class="text-center">{{$project->members->count()}}</td>
+                            <td class="text-center">{{@nullsafe($project->sprints->last()->tasks->count())}}</td>
                             <td>
                                 <a href="{{route('projects.show',$project->id)}}"><i class="far fa-eye text-secondary" aria-hidden="true"></i></a>
                             </td>
