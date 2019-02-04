@@ -36,27 +36,56 @@
     <div class="card bg-light">
         <div class="card-body">
             <div class="row">
-                <div class="col-2">
-                    <h5 class="card-title">Sprints</h5>
-
+                <div class="col-2 border-right border-dark">
+                    <div class="row">
+                        <div class="col">
+                            <div class="input-group">
+                                <h5 class="card-title" aria-describedby="basic-addon2">Sprints</h5>
+                                <div class="input-group-append ml-4">
+                                    <a href="#"><i class="fas fa-plus text-success"></i></a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col">
+                            <div class="list-group">
+                                <a href="#" class="list-group-item list-group-item-action list-group-item-secondary">50.01.05</a>
+                            </div>
+                        </div>
+                    </div>
                 </div>
                 <div class="col-10">
                     @php ($sprint = $project->sprints->last())
                     <h4 class="card-title">Tareas</h4>
-                    <table class="table table-striped">
-                        <thead>
-                            <tr>
-                                <th></th>
-                                <th>Nombre</th>
-                                <th>Estado</th>
-                                <th>Asignado a</th>
-                                <th>Tiempo restante</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            
-                        </tbody>
-                    </table>
+                    @if($sprint != null)
+                        <table class="table table-striped">
+                            <thead>
+                                <tr>
+                                    <th></th>
+                                    <th>Nombre</th>
+                                    <th>Estado</th>
+                                    <th>Asignado a</th>
+                                    <th>Tiempo restante</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach($sprints->tasks as $task)
+                                    <tr>
+                                        <td><a href=""><i class="fas fa-plus text-success"></i></a></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                    </tr>
+                                @endforeach
+                            </tbody>
+                        </table>
+                    @else
+                    <div class="alert alert-primary">
+                        Seleccione el sprint
+                    </div>
+                    @endif
                 </div>
             </div>
         </div>
@@ -65,4 +94,7 @@
         <a href="{{route('projects.index')}}">Volver al listado</a>
     </div>
 </div>
+
+<style>
+</style>
 @endsection
