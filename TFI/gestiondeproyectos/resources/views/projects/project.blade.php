@@ -51,7 +51,7 @@
                         <div class="row">
                             <div class="col">
                                 <div class="list-group">
-                                    <a onclick="setSprint({{$s}})">
+                                    <a href="{{route('projects.show',[$project->id, $s->id])}}">
                                         <span>{{ $s->version }}</span>
                                     </a>
                                 </div>
@@ -60,8 +60,16 @@
                     @endforeach
                 </div>
                 <div class="col-10">
-                    @php ($sprint = null)
-                    <h4 class="card-title">Tareas</h4>
+                    <div class="row">
+                        <div class="col">
+                            <div class="input-group">
+                                <h5 class="card-title" aria-describedby="basic-addon2">Tareas</h5>
+                                <div class="input-group-append ml-auto">
+                                    <a style="cursor:pointer;" data-toggle="modal" data-target="#taskModal"><i class="fas fa-plus text-success"></i></a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                     @if($sprint != null)
                         <table class="table table-striped">
                             <thead>
@@ -150,12 +158,48 @@
             </div>
         </div>
     </div>
+    <div class="modal fade" id="taskModal" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <form action="{{route('sprints.store')}}" method="POST">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Nueva tarea</h5>
+                        <div class="form-grouop">
+                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true"><i class="fas fa-times"></i></button>
+                            <button type="submit" class="close" aria-hidden="true"><i class="far fa-save"></i></button>
+                        </div>
+                    </div>
+                    {{ csrf_field() }}
+                    <input type="hidden" name="project" value="{{ $project->id }}">
+                    <div class="modal-body">
+                        <div class="form-group row justify-content-center">
+                            <label class="col-3 text-right">Número</label>
+                            <div class="col-4">
+                                <input type="text" class="form-control form-control-sm" name="number">
+                            </div>
+                        </div>
+                        <div class="form-group row justify-content-center">
+                            <label class="col-3 text-right">Versión</label>
+                            <div class="col-4">
+                                <input type="text" class="form-control form-control-sm" name="version">
+                            </div>
+                        </div>
+                        <div class="form-group row justify-content-center">
+                            <label class="col-3 text-right">Desde</label>
+                            <div class="col-4">
+                                <input type="date" class="form-control form-control-sm" name="from">
+                            </div>
+                        </div>
+                        <div class="form-group row justify-content-center">
+                            <label class="col-3 text-right">Fin estimado</label>
+                            <div class="col-4">
+                                <input type="date" class="form-control form-control-sm" name="toEstimated">
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
-
-<script>
-    function setSprint(sprint) {
-        {!!$sprint!!} = sprint;
-        console.log('{{$sprint}}');
-    }
-</script>
 @endsection

@@ -80,11 +80,12 @@ class ProjectController extends Controller
         return redirect()->route('projects.index');
     }
 
-    public function show ($id)
+    public function show ($id, $sprintId = null)
     {
         $project = $this->service->findById($id);
+        $sprint = \App\Domain\Sprint::find($sprintId);
 
-        return view('projects.project',['project' => $project]);
+        return view('projects.project',['project' => $project, 'sprint' => $sprint]);
     }
 
     public function storeSprint(Request $request)
