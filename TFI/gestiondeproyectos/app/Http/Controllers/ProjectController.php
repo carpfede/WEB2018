@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Domain\Project;
+use App\Domain\Sprint;
 use App\Application\Services\ProjectService;
 use App\Application\Services\MemberService;
 use Brian2694\Toastr\Facades\Toastr;
@@ -84,5 +85,34 @@ class ProjectController extends Controller
         $project = $this->service->findById($id);
 
         return view('projects.project',['project' => $project]);
+    }
+
+    public function storeSprint(Request $request)
+    {
+        $number = $request->get('number');
+        $version = $request->get('version');
+        $from = $request->get('from');
+        $toEstimated = $request->get('toEstimated');
+        $project = $request->get('project');
+
+        $sprint = new Sprint([
+            'number' => $number,
+            'version' => $version,
+            'from' => $from,
+            'toEstimated' => $toEstimated,
+            'project_id' => $project
+        ]);
+
+        $isValid = $this->service->saveSprint($sprint);
+
+        if(!$isValid)
+        {
+            Toastr::error('Contactese con el administrador!', 'Error de conexión', ["positionClass" => "toast-bottom-right"]);
+            $back = true;
+        }
+
+        Toastr::success('Se guardó correctamente', '', ["positionClass" => "toast-bottom-right"]);
+
+        return back();
     }
 }

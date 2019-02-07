@@ -51,14 +51,16 @@
                         <div class="row">
                             <div class="col">
                                 <div class="list-group">
-                                    <a href="#" class="list-group-item list-group-item-action list-group-item-secondary">$s->version</a>
+                                    <a onclick="setSprint({{$s}})">
+                                        <span>{{ $s->version }}</span>
+                                    </a>
                                 </div>
                             </div>
                         </div>
                     @endforeach
                 </div>
                 <div class="col-10">
-                    @php ($sprint = $project->sprints->last())
+                    @php ($sprint = null)
                     <h4 class="card-title">Tareas</h4>
                     @if($sprint != null)
                         <table class="table table-striped">
@@ -72,7 +74,7 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                @foreach($sprints->tasks as $task)
+                                @foreach($sprint->tasks as $task)
                                     <tr>
                                         <td><a href=""><i class="fas fa-plus text-success"></i></a></td>
                                         <td></td>
@@ -81,6 +83,15 @@
                                         <td></td>
                                     </tr>
                                 @endforeach
+                                @if(!$sprint->tasks->count()>0)
+                                    <tr>
+                                        <td colspan="5">
+                                            <div class="alert alert-primary" role="alert">
+                                                No hay tareas
+                                            </div>
+                                        </td>
+                                    </tr>
+                                @endif
                             </tbody>
                         </table>
                     @else
@@ -99,26 +110,27 @@
     <div class="modal fade" id="sprintModal" tabindex="-1" role="dialog" aria-hidden="true">
         <div class="modal-dialog modal-lg" role="document">
             <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Nuevo sprint</h5>
-                    <div class="form-grouop">
-                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"><i class="fas fa-times"></i></button>
-                        <button id="create-button" class="close" aria-hidden="true"><i class="far fa-save"></i></button>
-                    </div>
-                </div>
                 <form action="{{route('sprints.store')}}" method="POST">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Nuevo sprint</h5>
+                        <div class="form-grouop">
+                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true"><i class="fas fa-times"></i></button>
+                            <button type="submit" class="close" aria-hidden="true"><i class="far fa-save"></i></button>
+                        </div>
+                    </div>
                     {{ csrf_field() }}
+                    <input type="hidden" name="project" value="{{ $project->id }}">
                     <div class="modal-body">
                         <div class="form-group row justify-content-center">
                             <label class="col-3 text-right">Número</label>
                             <div class="col-4">
-                                <input type="text" class="form-control form-control-sm" name="name">
+                                <input type="text" class="form-control form-control-sm" name="number">
                             </div>
                         </div>
                         <div class="form-group row justify-content-center">
                             <label class="col-3 text-right">Versión</label>
                             <div class="col-4">
-                                <input type="text" class="form-control form-control-sm" name="shortname">
+                                <input type="text" class="form-control form-control-sm" name="version">
                             </div>
                         </div>
                         <div class="form-group row justify-content-center">
@@ -130,7 +142,7 @@
                         <div class="form-group row justify-content-center">
                             <label class="col-3 text-right">Fin estimado</label>
                             <div class="col-4">
-                                <input type="date" class="form-control form-control-sm" name="to">
+                                <input type="date" class="form-control form-control-sm" name="toEstimated">
                             </div>
                         </div>
                     </form>
@@ -140,6 +152,10 @@
     </div>
 </div>
 
-<style>
-</style>
+<script>
+    function setSprint(sprint) {
+        {!!$sprint!!} = sprint;
+        console.log('{{$sprint}}');
+    }
+</script>
 @endsection

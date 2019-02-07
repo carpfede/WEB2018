@@ -8,6 +8,8 @@ class Sprint extends Model
 {
     public $timestamps = false;
 
+    protected $fillable = ['number','version','from', 'toEstimated', 'to', 'project_id'];
+
     public function project()
     {
         return $this->belongsTo(Project::class);

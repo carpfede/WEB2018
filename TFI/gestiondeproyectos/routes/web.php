@@ -22,3 +22,4 @@ Route::resource('members', 'MemberController');
 Route::get('/members/{id}/delete','MemberController@delete')->name('members.delete');
 
 Route::resource('projects','ProjectController');
+Route::post('/','ProjectController@storeSprint')->name('sprints.store');

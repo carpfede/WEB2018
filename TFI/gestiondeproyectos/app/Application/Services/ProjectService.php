@@ -25,4 +25,9 @@ class ProjectService{
     {
         return $project->save();
     }
+
+    public function saveSprint($sprint)
+    {
+        return $sprint->save();
+    }
 }
