@@ -53,7 +53,7 @@
                         <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
                             @if(!is_null(cache()->get('projects'))) 
                                 @foreach (cache()->get('projects') as $p)
-                                    <a class="dropdown-item" href="">{{$p->shortname}}</a>
+                                    <a class="dropdown-item" href="{{route('projects.show',$p->id)}}">{{$p->shortname}}</a>
                                 @endforeach 
                                 <hr> 
                             @endif

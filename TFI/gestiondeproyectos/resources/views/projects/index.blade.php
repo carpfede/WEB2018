@@ -29,15 +29,44 @@
                             <td>{{$project->from}}</td>
                             <td>{{$project->to}}</td>
                             <td class="text-center">{{@nullsafe($project->sprints->last()->version)}}</td>
-                            <td class="text-center">{{$project->members->count()}}</td>
+                            <td class="text-center"><a class="text-primary" style="cursor:pointer;" data-toggle="modal" data-target="#usersModal-{{$project->id}}"><b>{{$project->members->count()}}</b></a></td>
                             <td class="text-center">{{@nullsafe($project->sprints->last()->tasks->count())}}</td>
                             <td>
                                 <a href="{{route('projects.show',$project->id)}}"><i class="far fa-eye text-secondary" aria-hidden="true"></i></a>
                             </td>
                         </tr>
+                        <div class="modal fade" id="usersModal-{{$project->id}}" tabindex="-1" role="dialog" aria-hidden="true">
+                            <div class="modal-dialog modal-lg" role="document">
+                                <div class="modal-content">
+                                    <form action="{{route('project.updateMembers')}}" method="POST">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title" id="exampleModalLabel">Asignar miembros</h5>
+                                            <div class="form-grouop">
+                                                <button type="button" class="close" data-dismiss="modal" aria-hidden="true"><i class="fas fa-times"></i></button>
+                                                <button type="submit" class="close" aria-hidden="true"><i class="far fa-save"></i></button>
+                                            </div>
+                                        </div>
+                                        {{ csrf_field() }}
+                                        <input type="hidden" name="project" value="{{ $project->id }}">
+                                        <div class="modal-body">
+                                            <div class="form-group row justify-content-center">
+                                                <label class="col-3 text-right">Miembros</label>
+                                                <select multiple name="members[]" class="form-control">
+                                                    @foreach($members as $member)
+                                                        <option value="{{$member->id}}" {{ $project->members->contains($member->id) ? 'selected' : '' }}>
+                                                            {{$member->lastName.' '.$member->firstName[0].'.'}}
+                                                        </option>
+                                                    @endforeach
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
                     @endforeach
                 </tbody>
             </table>
         </div>
-    </div>  
+    </div>
 @endsection
