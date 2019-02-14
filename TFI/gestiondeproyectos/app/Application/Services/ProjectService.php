@@ -30,4 +30,9 @@ class ProjectService{
     {
         return $sprint->save();
     }
+
+    public function saveTask($task)
+    {
+        return $task->save();
+    }
 }

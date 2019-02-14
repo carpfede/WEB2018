@@ -22,7 +22,7 @@
                 <div class="form-group row justify-content-center d-flex">
                     <label class="col-2 text-right">Descripción</label>
                     <div class="col-4">
-                    <textarea class="form-control" rows="3" name="description"></textarea>
+                        <textarea class="form-control" rows="3" name="description"></textarea>
                     </div>
                 </div>
                 <div class="form-group row justify-content-center">

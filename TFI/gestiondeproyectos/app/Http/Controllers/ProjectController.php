@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Domain\Project;
 use App\Domain\Sprint;
+use App\Domain\Task;
 use App\Application\Services\ProjectService;
 use App\Application\Services\MemberService;
 use Brian2694\Toastr\Facades\Toastr;
@@ -109,7 +110,38 @@ class ProjectController extends Controller
         if(!$isValid)
         {
             Toastr::error('Contactese con el administrador!', 'Error de conexión', ["positionClass" => "toast-bottom-right"]);
-            $back = true;
+        }
+
+        Toastr::success('Se guardó correctamente', '', ["positionClass" => "toast-bottom-right"]);
+
+        return back();
+    }
+
+    public function storeTask(Request $request)
+    {
+        $name = $request->get('name');
+        $priority = $request->get('priority');
+        $status = $request->get('status');
+        $description = $request->get('description');
+        $type = $request->get('type');
+        $sprint = $request->get('sprint');
+        $member = $request->get('member');
+
+        $task = new Task([
+            'name' => $name,
+            'priority' => $priority,
+            'description' => $description,
+            'status' => $status,
+            'type' => $type,
+            'sprint_id' => $sprint,
+            'member_id' => $member
+        ]);
+
+        $isValid = $this->service->saveTask($task);
+
+        if(!$isValid)
+        {
+            Toastr::error('Contactese con el administrador!', 'Error de conexión', ["positionClass" => "toast-bottom-right"]);
         }
 
         Toastr::success('Se guardó correctamente', '', ["positionClass" => "toast-bottom-right"]);

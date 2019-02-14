@@ -16,8 +16,8 @@ class CreateSubtasksTable extends Migration
         Schema::create('subtasks', function (Blueprint $table) {
             $table->increments('id');
             $table->string('name');
-            $table->time('estimated');
-            $table->time('remaining');
+            $table->float('estimated',8,2);
+            $table->float('remaining',8,2);
             $table->enum('status', ['Hacer', 'EnProgreso', 'Resuelta', 'Testing', 'Cancelada']);
             $table->unsignedInteger('member_id');
             $table->foreign('member_id')->references('id')->on('members');

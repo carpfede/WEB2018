@@ -8,6 +8,8 @@ class Task extends Model
 {
     public $timestamps = false;
 
+    protected $fillable = ['name','priority','status','type','description','member_id','sprint_id'];
+
     public function member()
     {
         return $this->belongsTo(Member::class);
@@ -21,5 +23,10 @@ class Task extends Model
     public function subTasks()
     {
         return $this->hasMany(SubTask::class);
+    }
+
+    public function remaining()
+    {
+        return $this->subTasks->sum('remaining');
     }
 }

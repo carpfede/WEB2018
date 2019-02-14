@@ -20,7 +20,7 @@ class CreateTasksTable extends Migration
             $table->enum('status', ['Hacer', 'EnProgreso', 'Resuelta', 'Testing', 'Cancelada']);
             $table->enum('type', ['NuevaFuncion', 'Tarea', 'Error', 'Soporte']);	        	        
             $table->string('description');
-            $table->string('attachments');
+            $table->string('attachments')->nullable();
             $table->unsignedInteger('member_id');
             $table->foreign('member_id')->references('id')->on('members');
             $table->unsignedInteger('sprint_id');

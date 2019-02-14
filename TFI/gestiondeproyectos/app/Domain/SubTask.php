@@ -10,7 +10,7 @@ class Subtask extends Model
 
     public function member()
     {
-        return $this->belongsTo(Memmber::class);
+        return $this->belongsTo(Member::class);
     }
 
     public function task()

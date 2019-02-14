@@ -60,36 +60,66 @@
                     @endforeach
                 </div>
                 <div class="col-10">
-                    <div class="row">
-                        <div class="col">
-                            <div class="input-group">
-                                <h5 class="card-title" aria-describedby="basic-addon2">Tareas</h5>
-                                <div class="input-group-append ml-auto">
-                                    <a style="cursor:pointer;" data-toggle="modal" data-target="#taskModal"><i class="fas fa-plus text-success"></i></a>
+                    @if($sprint != null)
+                        <div class="row">
+                            <div class="col">
+                                <div class="input-group">
+                                    <h5 class="card-title" aria-describedby="basic-addon2">Tareas</h5>
+                                    <div class="input-group-append ml-auto">
+                                        <a style="cursor:pointer;" data-toggle="modal" data-target="#taskModal"><i class="fas fa-plus text-success"></i></a>
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
-                    @if($sprint != null)
                         <table class="table table-striped">
                             <thead>
                                 <tr>
                                     <th></th>
                                     <th>Nombre</th>
                                     <th>Estado</th>
-                                    <th>Asignado a</th>
+                                    <th>Responsable</th>
                                     <th>Tiempo restante</th>
+                                    <th>Subtareas</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 @foreach($sprint->tasks as $task)
                                     <tr>
-                                        <td><a href=""><i class="fas fa-plus text-success"></i></a></td>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
+                                        <td><a style="cursor:pointer;" data-toggle="modal" data-target="#taskModal"><i class="fas fa-plus text-success"></i></a></td>
+                                        <td>{{$task->name}}</td>
+                                        <td>{{$task->status}}</td>
+                                        <td>{{$task->member->firstName}}</td>
+                                        <td>{{$task->remaining()}}</td>
+                                        <td><a href="" data-toggle="collapse" data-target="#{{'taskId'.$task->id}}" class="accordion-toggle"><b>{{$task->subtasks->count()}}</b></a></td>
                                     </tr>
+                                    @foreach($task->subtasks as $subtask)
+                                        <tr>
+                                            <td colspan="12" class="hiddenRow">
+                                                <div class="collapse" id="{{'taskId'.$task->id}}">
+                                                    <table class="table table-striped">
+                                                        <thead>
+                                                            <tr>
+                                                                <th>Nombre</th>
+                                                                <th>Estimado</th>
+                                                                <th>Restante</th>
+                                                                <th>Estado</th>
+                                                                <th>Asignado a</th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                            <tr>
+                                                                <td><span>{{$subtask->name}}</span></td>
+                                                                <td><span>{{$subtask->estimated}}</span></td>
+                                                                <td><span>{{$subtask->remaining}}</span></td>
+                                                                <td><span>{{$subtask->status}}</span></td>
+                                                                <td><span>{{$subtask->member->firstName.' '.$subtask->member->lastName[0].'.'}}</span></td>
+                                                            </tr>
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    @endforeach  
                                 @endforeach
                                 @if(!$sprint->tasks->count()>0)
                                     <tr>
@@ -161,7 +191,7 @@
     <div class="modal fade" id="taskModal" tabindex="-1" role="dialog" aria-hidden="true">
         <div class="modal-dialog modal-lg" role="document">
             <div class="modal-content">
-                <form action="{{route('sprints.store')}}" method="POST">
+                <form action="{{route('tasks.store')}}" method="POST">
                     <div class="modal-header">
                         <h5 class="modal-title" id="exampleModalLabel">Nueva tarea</h5>
                         <div class="form-grouop">
@@ -170,30 +200,48 @@
                         </div>
                     </div>
                     {{ csrf_field() }}
-                    <input type="hidden" name="project" value="{{ $project->id }}">
+                    <input type="hidden" name="sprint" value="{{ @nullsafe($sprint->id) }}">
+                    <input type="hidden" name="member" value="{{ Auth::user()->member->id }}">
                     <div class="modal-body">
                         <div class="form-group row justify-content-center">
-                            <label class="col-3 text-right">Número</label>
+                            <label class="col-3 text-right">Nombre</label>
                             <div class="col-4">
-                                <input type="text" class="form-control form-control-sm" name="number">
+                                <input type="text" class="form-control form-control-sm" name="name">
                             </div>
                         </div>
                         <div class="form-group row justify-content-center">
-                            <label class="col-3 text-right">Versión</label>
+                            <label class="col-3 text-right">Prioridad</label>
                             <div class="col-4">
-                                <input type="text" class="form-control form-control-sm" name="version">
+                                <input type="text" class="form-control form-control-sm" name="priority">
                             </div>
                         </div>
                         <div class="form-group row justify-content-center">
-                            <label class="col-3 text-right">Desde</label>
+                            <label class="col-3 text-right">Estado</label>
                             <div class="col-4">
-                                <input type="date" class="form-control form-control-sm" name="from">
+                                <select name="status">
+                                    <option value="Hacer">Por hacer</option>
+                                    <option value="EnProgreso">En progreso</option>
+                                    <option value="Resuelta">Resuelta</option>
+                                    <option value="Testing">Testing</option>
+                                    <option value="Cancelada">Cancelada</option>
+                                </select>
                             </div>
                         </div>
                         <div class="form-group row justify-content-center">
-                            <label class="col-3 text-right">Fin estimado</label>
+                            <label class="col-3 text-right">Tipo</label>
                             <div class="col-4">
-                                <input type="date" class="form-control form-control-sm" name="toEstimated">
+                                <select name="type">
+                                    <option value="NuevaFuncion">Nueva funcionalidad</option>
+                                    <option value="Tarea">Tarea</option>
+                                    <option value="Error">Error</option>
+                                    <option value="Soporte">Soporte</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group row justify-content-center">
+                            <label class="col-3 text-right">Descripción</label>
+                            <div class="col-4">
+                                <textarea class="form-control" rows="3" name="description"></textarea>
                             </div>
                         </div>
                     </form>
