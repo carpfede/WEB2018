@@ -13,7 +13,7 @@ class ProjectService{
     }
 
     public function findCurrent(){
-        return Auth::user()->projects;
+        return Auth::user()->member->projects;
     }
 
     public function findById($id)
@@ -34,5 +34,15 @@ class ProjectService{
     public function saveTask($task)
     {
         return $task->save();
+    }
+
+    public function saveSubTask($subtask)
+    {
+        return $subtask->save();
+    }
+
+    public function updateMembers($project,$members){
+        $p = $this->findById($project);
+        return $p->members()->sync($members);
     }
 }

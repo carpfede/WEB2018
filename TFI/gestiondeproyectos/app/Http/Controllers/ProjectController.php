@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Domain\Project;
 use App\Domain\Sprint;
 use App\Domain\Task;
+use App\Domain\SubTask;
 use App\Application\Services\ProjectService;
 use App\Application\Services\MemberService;
 use Brian2694\Toastr\Facades\Toastr;
@@ -24,8 +25,9 @@ class ProjectController extends Controller
 
     public function index()
     {
-        $projects = $this->service->findAll();
-        return view('projects.index',['projects' => $projects]);
+        $projects = $this->service->findCurrent();
+        $members = $this->memberservice->findAll();
+        return view('projects.index',['projects' => $projects, 'members' => $members]);
     }
 
     public function create()
@@ -89,6 +91,23 @@ class ProjectController extends Controller
         return view('projects.project',['project' => $project, 'sprint' => $sprint]);
     }
 
+    public function updateMembers(Request $request)
+    {
+        $members = $request->get('members');
+        $project = $request->get('project');
+        $isValid = $this->service->updateMembers($project,$members);
+
+
+        if(!$isValid)
+        {
+            Toastr::error('Contactese con el administrador!', 'Error de conexión', ["positionClass" => "toast-bottom-right"]);
+        }
+
+        Toastr::success('Se guardó correctamente', '', ["positionClass" => "toast-bottom-right"]);
+
+        return back();
+    }
+
     public function storeSprint(Request $request)
     {
         $number = $request->get('number');
@@ -138,6 +157,35 @@ class ProjectController extends Controller
         ]);
 
         $isValid = $this->service->saveTask($task);
+
+        if(!$isValid)
+        {
+            Toastr::error('Contactese con el administrador!', 'Error de conexión', ["positionClass" => "toast-bottom-right"]);
+        }
+
+        Toastr::success('Se guardó correctamente', '', ["positionClass" => "toast-bottom-right"]);
+
+        return back();
+    }
+
+    public function storeSubtask(Request $request)
+    {
+        $name = $request->get('name');
+        $estimated = $request->get('estimated');
+        $status = $request->get('status');
+        $task = $request->get('task');
+        $member = $request->get('member');
+
+        $subtask = new SubTask([
+            'name' => $name,
+            'estimated' => $estimated,
+            'remaining' => $estimated,
+            'status' => $status,
+            'task_id' => $task,
+            'member_id' => $member
+        ]);
+
+        $isValid = $this->service->saveSubTask($subtask);
 
         if(!$isValid)
         {

@@ -85,7 +85,7 @@
                             <tbody>
                                 @foreach($sprint->tasks as $task)
                                     <tr>
-                                        <td><a style="cursor:pointer;" data-toggle="modal" data-target="#taskModal"><i class="fas fa-plus text-success"></i></a></td>
+                                        <td><a style="cursor:pointer;" data-toggle="modal" data-target="#subtaskModal" data-taskid="{{$task->id}}"><i class="fas fa-plus text-success"></i></a></td>
                                         <td>{{$task->name}}</td>
                                         <td>{{$task->status}}</td>
                                         <td>{{$task->member->firstName}}</td>
@@ -123,7 +123,7 @@
                                 @endforeach
                                 @if(!$sprint->tasks->count()>0)
                                     <tr>
-                                        <td colspan="5">
+                                        <td colspan="12">
                                             <div class="alert alert-primary" role="alert">
                                                 No hay tareas
                                             </div>
@@ -218,7 +218,7 @@
                         <div class="form-group row justify-content-center">
                             <label class="col-3 text-right">Estado</label>
                             <div class="col-4">
-                                <select name="status">
+                                <select class="form-control" name="status">
                                     <option value="Hacer">Por hacer</option>
                                     <option value="EnProgreso">En progreso</option>
                                     <option value="Resuelta">Resuelta</option>
@@ -230,7 +230,7 @@
                         <div class="form-group row justify-content-center">
                             <label class="col-3 text-right">Tipo</label>
                             <div class="col-4">
-                                <select name="type">
+                                <select class="form-control" name="type">
                                     <option value="NuevaFuncion">Nueva funcionalidad</option>
                                     <option value="Tarea">Tarea</option>
                                     <option value="Error">Error</option>
@@ -249,5 +249,66 @@
             </div>
         </div>
     </div>
+    <div class="modal fade" id="subtaskModal" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <form action="{{route('subtasks.store')}}" method="POST">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Nueva Sub-tarea</h5>
+                        <div class="form-grouop">
+                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true"><i class="fas fa-times"></i></button>
+                            <button type="submit" class="close" aria-hidden="true"><i class="far fa-save"></i></button>
+                        </div>
+                    </div>
+                    {{ csrf_field() }}
+                    <input type="hidden" name="task" id="taskid" value="">
+                    <div class="modal-body">
+                        <div class="form-group row justify-content-center">
+                            <label class="col-3 text-right">Nombre</label>
+                            <div class="col-4">
+                                <input type="text" class="form-control form-control-sm" name="name">
+                            </div>
+                        </div>
+                        <div class="form-group row justify-content-center">
+                            <label class="col-3 text-right">Tiempo estimado</label>
+                            <div class="col-4">
+                                <input type="number" min="0" step="0.1" class="form-control form-control-sm" name="estimated">
+                            </div>
+                        </div>
+                        <div class="form-group row justify-content-center">
+                            <label class="col-3 text-right">Estado</label>
+                            <div class="col-4">
+                                <select class="form-control" name="status">
+                                    <option value="Hacer">Por hacer</option>
+                                    <option value="EnProgreso">En progreso</option>
+                                    <option value="Resuelta">Resuelta</option>
+                                    <option value="Testing">Testing</option>
+                                    <option value="Cancelada">Cancelada</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group row justify-content-center">
+                            <label class="col-3 text-right">Asignado a</label>
+                            <div class="col-4">
+                                <select class="form-control" name="member">
+                                    @foreach($project->members as $member)
+                                        <option value="{{$member->id}}">{{$member->lastName.' '.$member->firstName[0].'.'}}</option>
+                                    @endforeach    
+                                </select>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
+<script>
+    $(document).ready(function(){
+        $('#subtaskModal').on('show.bs.modal', function(e) {
+            var id = $(e.relatedTarget).data('taskid');
+            $("#taskid").val(id);
+        });
+    });
+</script>
 @endsection

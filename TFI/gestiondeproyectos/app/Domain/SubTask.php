@@ -8,6 +8,8 @@ class Subtask extends Model
 {
     public $timestamps = false;
 
+    protected $fillable = ['name','estimated','remaining','status','member_id','task_id'];
+
     public function member()
     {
         return $this->belongsTo(Member::class);
