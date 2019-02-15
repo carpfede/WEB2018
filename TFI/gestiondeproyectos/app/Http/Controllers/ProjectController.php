@@ -10,6 +10,7 @@ use App\Domain\SubTask;
 use App\Application\Services\ProjectService;
 use App\Application\Services\MemberService;
 use Brian2694\Toastr\Facades\Toastr;
+use Illuminate\Support\Facades\Auth;
 
 class ProjectController extends Controller
 {
@@ -71,7 +72,9 @@ class ProjectController extends Controller
             'shortname' => $shortname
         ]);
 
-        $isValid = $this->service->save($project);
+        $member = Auth::user()->member->id;
+
+        $isValid = $this->service->save($project,$member);
 
         if(!$isValid)
         {
@@ -161,6 +164,21 @@ class ProjectController extends Controller
         if(!$isValid)
         {
             Toastr::error('Contactese con el administrador!', 'Error de conexión', ["positionClass" => "toast-bottom-right"]);
+            return back();
+        }
+
+        Toastr::success('Se guardó correctamente', '', ["positionClass" => "toast-bottom-right"]);
+
+        return back();
+    }
+
+    public function updateTask(Request $request)
+    {
+        $isValid = $this->service->updateTask($request->get('id'),$request->get('status'));
+
+        if(!$isValid)
+        {
+            Toastr::error('Tarea inexistente', 'Error', ["positionClass" => "toast-bottom-right"]);
         }
 
         Toastr::success('Se guardó correctamente', '', ["positionClass" => "toast-bottom-right"]);

@@ -41,9 +41,11 @@
                         <div class="col">
                             <div class="input-group">
                                 <h5 class="card-title" aria-describedby="basic-addon2">Sprints</h5>
-                                <div class="input-group-append ml-4">
-                                    <a style="cursor:pointer;" data-toggle="modal" data-target="#sprintModal"><i class="fas fa-plus text-success"></i></a>
-                                </div>
+                                @if(Auth::user()->isInRole('Admin','Lider de proyecto'))
+                                    <div class="input-group-append ml-4">
+                                        <a style="cursor:pointer;" data-toggle="modal" data-target="#sprintModal"><i class="fas fa-plus text-success"></i></a>
+                                    </div>
+                                @endif
                             </div>
                         </div>
                     </div>
@@ -87,7 +89,16 @@
                                     <tr>
                                         <td><a style="cursor:pointer;" data-toggle="modal" data-target="#subtaskModal" data-taskid="{{$task->id}}"><i class="fas fa-plus text-success"></i></a></td>
                                         <td>{{$task->name}}</td>
-                                        <td>{{$task->status}}</td>
+                                        <td>
+                                            <select class="form-control form-control-sm" onChange="updateTask({{$task->id}},this.value)">
+                                                <option value="Hacer" {{$task->status == 'Hacer' ? 'selected' : ''}}>Por hacer</option>
+                                                <option value="EnProgreso" {{$task->status == 'EnProgreso' ? 'selected' : ''}}>En progreso</option>
+                                                <option value="Resuelta" {{$task->status == 'Resuelta' ? 'selected' : ''}}>Resuelta</option>
+                                                <option value="Testing" {{$task->status == 'Testing' ? 'selected' : ''}}>Testing</option>
+                                                <option value="Cancelada" {{$task->status == 'Cancelada' ? 'selected' : ''}}>Cancelada</option>
+                                            </select>
+                                            
+                                        </td>
                                         <td>{{$task->member->firstName}}</td>
                                         <td>{{$task->remaining()}}</td>
                                         <td><a href="" data-toggle="collapse" data-target="#{{'taskId'.$task->id}}" class="accordion-toggle"><b>{{$task->subtasks->count()}}</b></a></td>
@@ -310,5 +321,14 @@
             $("#taskid").val(id);
         });
     });
+
+    function updateTask (id,item) {
+        const dto = {
+            'taskId': id,
+            'status': item,
+            'CSRF': getCSRFTokenValue()
+        }
+        axios.post('/tasks/update',dto).then();
+    }
 </script>
 @endsection

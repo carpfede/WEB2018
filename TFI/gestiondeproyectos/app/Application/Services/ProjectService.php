@@ -4,6 +4,7 @@ namespace App\Application\Services;
 
 use Illuminate\Support\Facades\Auth;
 use App\Domain\Project;
+use App\Domain\Task;
 
 class ProjectService{
 
@@ -21,9 +22,15 @@ class ProjectService{
         return Project::find($id);
     }
 
-    public function save($project)
+    public function save($project,$member)
     {
-        return $project->save();
+        $valid = $project->save();
+        if($valid)
+        {
+            return $project->members()->sync($member);
+        }
+
+        return $valid;
     }
 
     public function saveSprint($sprint)
@@ -33,6 +40,19 @@ class ProjectService{
 
     public function saveTask($task)
     {
+        return $task->save();
+    }
+
+    public function updateTask($id,$status)
+    {
+        $taks = Task::find($id);
+
+        if(!$task){
+            return false;
+        }
+
+        $taks->status = $status;
+
         return $task->save();
     }
 

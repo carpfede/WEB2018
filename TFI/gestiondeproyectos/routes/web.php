@@ -12,6 +12,7 @@
 */
 
 Auth::routes();
+Route::get('logout', 'Auth\LoginController@logout')->name('logout');
 
 Route::get('/', 'HomeController@index')->name('home');
 
@@ -22,8 +23,12 @@ Route::resource('members', 'MemberController');
 Route::get('/members/{id}/delete','MemberController@delete')->name('members.delete');
 
 Route::resource('projects','ProjectController');
-Route::post('/sprints/store','ProjectController@storeSprint')->name('sprints.store');
-Route::post('/tasks/store','ProjectController@storeTask')->name('tasks.store');
-Route::post('/subtasks/store','ProjectController@storeSubtask')->name('subtasks.store');
 Route::post('/project/update','ProjectController@updateMembers')->name('project.updateMembers');
 Route::get('/project/{id}/{sprintId?}','ProjectController@show')->name('projects.show');
+
+Route::post('/sprints/store','ProjectController@storeSprint')->name('sprints.store');
+
+Route::post('/tasks/store','ProjectController@storeTask')->name('tasks.store');
+Route::post('/tasks/update','ProjectController@updateTask');
+
+Route::post('/subtasks/store','ProjectController@storeSubtask')->name('subtasks.store');

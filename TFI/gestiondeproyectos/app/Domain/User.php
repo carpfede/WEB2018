@@ -33,4 +33,9 @@ class User extends Authenticatable
     {
         return $this->belongsTo(Member::class);
     }
+
+    public function isInRole(...$roles)
+    {
+        return in_array($this->member->role->name,$roles);
+    }
 }

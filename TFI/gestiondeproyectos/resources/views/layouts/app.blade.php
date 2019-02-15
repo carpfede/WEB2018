@@ -19,6 +19,8 @@
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 
+    <!-- Axios -->
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 
     <!-- Toastr CSS -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
@@ -34,24 +36,26 @@
             </button>
             <div class="collapse navbar-collapse">
                 <ul class="navbar-nav">
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true"
-                            aria-expanded="false">
-                            <span>Datos maestros</span>
-                        </a>
-                        <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                            <a class="dropdown-item" href="{{route('members.index')}}">Miembros</a>
-                            <hr>
-                            <a class="dropdown-item" href="{{route('roles.index')}}">Roles</a>
-                        </div>
-                    </li>
+                    @if(Auth::user()->isInRole('Admin'))
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true"
+                                aria-expanded="false">
+                                <span>Datos maestros</span>
+                            </a>
+                            <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                                <a class="dropdown-item" href="{{route('members.index')}}">Miembros</a>
+                                <hr>
+                                <a class="dropdown-item" href="{{route('roles.index')}}">Roles</a>
+                            </div>
+                        </li>
+                    @endif
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true"
                             aria-expanded="false">
                             <span>Proyectos</span>
                         </a>
                         <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                            @if(!is_null(cache()->get('projects'))) 
+                            @if(!!cache()->get('projects') && cache()->get('projects')->count() > 0) 
                                 @foreach (cache()->get('projects') as $p)
                                     <a class="dropdown-item" href="{{route('projects.show',$p->id)}}">{{$p->shortname}}</a>
                                 @endforeach 
@@ -62,6 +66,9 @@
                     </li>
                 </ul>
                 <ul class="navbar-nav ml-auto">
+                    <div class="my-auto">
+                        <label class="control-label">Hola {{Auth::user()->member->firstName}}!</label>
+                    </div>
                     <li class="nav-item">
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true"
@@ -71,7 +78,7 @@
                             <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink">
                                 <a class="dropdown-item" href="#">Configuración</a>
                                 <hr>
-                                <a class="dropdown-item" href="#">Salir</a>
+                                    <a class="dropdown-item" href="{{ route('logout') }}">Salir</a>
                             </div>
                         </li>
                     </li>

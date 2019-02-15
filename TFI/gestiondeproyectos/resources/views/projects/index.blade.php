@@ -5,7 +5,9 @@
     <div class="card">
         <div class="card-body">
             <h4 class="card-title">Proyectos</h4>
-            <a href="{{route('projects.create')}}" class="float-right"><i class="fas fa-plus-circle fa-2x text-success"></i></i></a>
+            @if(Auth::user()->isInRole('Admin','Lider de proyecto'))
+                <a href="{{route('projects.create')}}" class="float-right"><i class="fas fa-plus-circle fa-2x text-success"></i></i></a>
+            @endif
             <table class="table table-striped">
                 <thead>
                     <tr>
@@ -43,15 +45,17 @@
                                             <h5 class="modal-title" id="exampleModalLabel">Asignar miembros</h5>
                                             <div class="form-grouop">
                                                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true"><i class="fas fa-times"></i></button>
-                                                <button type="submit" class="close" aria-hidden="true"><i class="far fa-save"></i></button>
+                                                @if(Auth::user()->isInRole('Admin','Lider de proyecto'))
+                                                    <button type="submit" class="close" aria-hidden="true"><i class="far fa-save"></i></button>
+                                                @endif
                                             </div>
                                         </div>
                                         {{ csrf_field() }}
                                         <input type="hidden" name="project" value="{{ $project->id }}">
                                         <div class="modal-body">
-                                            <div class="form-group row justify-content-center">
-                                                <label class="col-3 text-right">Miembros</label>
-                                                <select multiple name="members[]" class="form-control">
+                                            <div class="form-group justify-content-center">
+                                                <label class="">Miembros</label>
+                                                <select multiple name="members[]" size="20" class="form-control" {{Auth::user()->isInRole('Admin','Lider de proyecto') ? '' : 'disabled'}}>
                                                     @foreach($members as $member)
                                                         <option value="{{$member->id}}" {{ $project->members->contains($member->id) ? 'selected' : '' }}>
                                                             {{$member->lastName.' '.$member->firstName[0].'.'}}
