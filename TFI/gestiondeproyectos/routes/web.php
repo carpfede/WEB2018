@@ -25,6 +25,7 @@ Route::get('/members/{id}/delete','MemberController@delete')->name('members.dele
 Route::resource('projects','ProjectController');
 Route::post('/project/update','ProjectController@updateMembers')->name('project.updateMembers');
 Route::get('/project/{id}/{sprintId?}','ProjectController@show')->name('projects.show');
+Route::get('/getDataChart','ProjectController@getDataChart');
 
 Route::post('/sprints/store','ProjectController@storeSprint')->name('sprints.store');
 

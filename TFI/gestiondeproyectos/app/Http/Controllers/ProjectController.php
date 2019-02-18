@@ -31,6 +31,16 @@ class ProjectController extends Controller
         return view('projects.index',['projects' => $projects, 'members' => $members]);
     }
 
+    public function getDataChart(){
+        $projects = $this->service->findCurrent();
+        $subtasks = $this->memberservice->findSubtasks();
+        
+        return response()->json([
+            'projects' => $projects,
+            'subtasks' => $subtasks
+        ]);
+    }
+
     public function create()
     {
         return view('projects.create');
@@ -174,7 +184,9 @@ class ProjectController extends Controller
 
     public function updateTask(Request $request)
     {
-        $isValid = $this->service->updateTask($request->get('id'),$request->get('status'));
+        $isValid = $this->service->updateTask($request->get('taskId'),$request->get('status'));
+
+        print_r($isValid);
 
         if(!$isValid)
         {

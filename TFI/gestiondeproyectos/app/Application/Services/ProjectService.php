@@ -45,13 +45,13 @@ class ProjectService{
 
     public function updateTask($id,$status)
     {
-        $taks = Task::find($id);
+        $task = Task::find($id);
 
         if(!$task){
             return false;
         }
 
-        $taks->status = $status;
+        $task->status = $status;
 
         return $task->save();
     }

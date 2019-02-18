@@ -103,21 +103,21 @@
                                         <td>{{$task->remaining()}}</td>
                                         <td><a href="" data-toggle="collapse" data-target="#{{'taskId'.$task->id}}" class="accordion-toggle"><b>{{$task->subtasks->count()}}</b></a></td>
                                     </tr>
-                                    @foreach($task->subtasks as $subtask)
-                                        <tr>
-                                            <td colspan="12" class="hiddenRow">
-                                                <div class="collapse" id="{{'taskId'.$task->id}}">
-                                                    <table class="table table-striped">
-                                                        <thead>
-                                                            <tr>
-                                                                <th>Nombre</th>
-                                                                <th>Estimado</th>
-                                                                <th>Restante</th>
-                                                                <th>Estado</th>
-                                                                <th>Asignado a</th>
-                                                            </tr>
-                                                        </thead>
-                                                        <tbody>
+                                    <tr>
+                                        <td colspan="12" class="hiddenRow">
+                                            <div class="collapse" id="{{'taskId'.$task->id}}">
+                                                <table class="table table-striped">
+                                                    <thead>
+                                                        <tr>
+                                                            <th>Nombre</th>
+                                                            <th>Estimado</th>
+                                                            <th>Restante</th>
+                                                            <th>Estado</th>
+                                                            <th>Asignado a</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        @foreach($task->subtasks as $subtask)
                                                             <tr>
                                                                 <td><span>{{$subtask->name}}</span></td>
                                                                 <td><span>{{$subtask->estimated}}</span></td>
@@ -125,12 +125,12 @@
                                                                 <td><span>{{$subtask->status}}</span></td>
                                                                 <td><span>{{$subtask->member->firstName.' '.$subtask->member->lastName[0].'.'}}</span></td>
                                                             </tr>
-                                                        </tbody>
-                                                    </table>
-                                                </div>
-                                            </td>
-                                        </tr>
-                                    @endforeach  
+                                                        @endforeach  
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </td>
+                                    </tr>
                                 @endforeach
                                 @if(!$sprint->tasks->count()>0)
                                     <tr>
@@ -315,7 +315,28 @@
     </div>
 </div>
 <script>
+
+
     $(document).ready(function(){
+        toastr.optionsOverride = 'positionclass = "toast-bottom-right"';
+        toastr.options.positionClass = 'toast-bottom-right';
+
+        window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
+
+        /**
+         * Next we will register the CSRF Token as a common header with Axios so that
+         * all outgoing HTTP requests automatically have it attached. This is just
+         * a simple convenience so we don't have to attach every token manually.
+         */
+
+        let token = document.head.querySelector('meta[name="csrf-token"]');
+
+        if (token) {
+            window.axios.defaults.headers.common['_token'] = token.content;
+        } else {
+            console.error('CSRF token not found: https://laravel.com/docs/csrf#csrf-x-csrf-token');
+        }
+
         $('#subtaskModal').on('show.bs.modal', function(e) {
             var id = $(e.relatedTarget).data('taskid');
             $("#taskid").val(id);
@@ -326,9 +347,10 @@
         const dto = {
             'taskId': id,
             'status': item,
-            'CSRF': getCSRFTokenValue()
         }
-        axios.post('/tasks/update',dto).then();
+        axios.post('/tasks/update',dto).then(data => { 
+            toastr.success('Se guardo correctamente!', '');
+        });
     }
 </script>
 @endsection

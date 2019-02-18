@@ -4,6 +4,7 @@ namespace App\Application\Services;
 use App\Domain\Member;
 use App\Domain\User;
 use App\Application\Services\UserService;
+use Illuminate\Support\Facades\Auth;
 
 class MemberService{
 
@@ -64,5 +65,9 @@ class MemberService{
         $member = $this->findById($id);
 
         return $member->delete();
+    }
+
+    public function findSubtasks(){
+        return Auth::user()->member->subTasks;
     }
 }
